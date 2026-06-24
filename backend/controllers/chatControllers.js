@@ -1,4 +1,4 @@
-import Chat from "../models/Chat.js";
+import Chat from "../models/chat.js";
 import Connection from "../models/connection.js";
 import User from "../models/user.js";
 export async function getChat(req, res) {
