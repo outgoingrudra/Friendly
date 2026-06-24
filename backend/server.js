@@ -21,10 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(
   cors({
-    origin: true ,
+    origin: "https://friendly-frontend-omega.vercel.app",
     credentials: true,
   })
-); 
+);
 
 app.use("/auth",authRouter)
 app.use("/user",userRouter)

@@ -5,8 +5,9 @@ let io;
 export function initializeSocket(server) {
   io = new Server(server, {
     cors: {
-      origin: true,
-    },
+    origin: "https://friendly-frontend-omega.vercel.app",
+    credentials: true,
+  },
   });
 
   io.on("connection", (socket) => {
