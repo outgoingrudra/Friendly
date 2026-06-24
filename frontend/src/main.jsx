@@ -7,11 +7,11 @@ import { AuthProvider } from "./context/AuthContext";
 import { FeedProvider } from "./context/FeedContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+ 
     <AuthProvider>
       <FeedProvider>
         <App />
       </FeedProvider>
     </AuthProvider>
-  </React.StrictMode>
+  
 );

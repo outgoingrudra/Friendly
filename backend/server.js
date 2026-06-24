@@ -8,6 +8,10 @@ import cookieParser from "cookie-parser"
 import cors from "cors";
 import connectionRouter from "./routes/connectionRoutes.js"
 import { connectRabbitMQ } from "./configs/rabbitmq.js";
+import http from "http"
+import {initializeSocket} from "./utils/socket.js"
+import chatRouter from "./routes/chatRouter.js"
+import messageRouter from "./routes/messageRouter.js"
 
 
 
@@ -25,6 +29,15 @@ app.use(
 app.use("/auth",authRouter)
 app.use("/user",userRouter)
 app.use("/connection",connectionRouter)
+app.use("/chat",chatRouter)
+app.use("/message",messageRouter)
+
+
 connectDB()
 connectRabbitMQ();
-app.listen(PORT,ServerRunning)
+
+
+
+const server = http.createServer(app)
+initializeSocket(server)
+server.listen(PORT,ServerRunning)

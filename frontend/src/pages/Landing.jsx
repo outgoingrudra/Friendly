@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Users, MessageCircle, Image as ImageIcon, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import friendlyImg from "../assets/landing_image.png";
+// import friendlyImg from "../assets/landing_image.png";
 
 export default function Landing() {
   const navigate = useNavigate();
+  let friendlyImg = "https://ik.imagekit.io/friendly/Gemini_Generated_Image_jjnviejjnviejjnv_epkV0x5xi.png"
 
   const features = [
     { icon: UserPlus, label: "Make Connections" },

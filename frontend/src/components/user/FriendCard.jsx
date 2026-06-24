@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { UserMinus, User } from "lucide-react";
+import { UserMinus, User, MessageCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { removeConnection } from "../../api/connection";
 import { useNavigate } from "react-router-dom";
-
-
-
 
 export default function FriendCard({ friend, connectionId, onUnfriend }) {
   const navigate = useNavigate();
@@ -52,7 +49,7 @@ export default function FriendCard({ friend, connectionId, onUnfriend }) {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-2">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -60,7 +57,17 @@ export default function FriendCard({ friend, connectionId, onUnfriend }) {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-blue-50 text-blue-500 text-xs font-medium hover:bg-blue-100 cursor-pointer transition"
         >
           <User size={14} />
-          View Profile
+          Profile
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate(`/chat/${friend._id}`)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-50 text-emerald-500 text-xs font-medium hover:bg-emerald-100 cursor-pointer transition shadow-sm"
+        >
+          <MessageCircle size={14} />
+          Chat
         </motion.button>
 
         <motion.button
