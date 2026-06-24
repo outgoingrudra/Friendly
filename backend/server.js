@@ -34,8 +34,12 @@ app.use("/message",messageRouter)
 
 
 connectDB()
-connectRabbitMQ();
 
+try {
+  connectRabbitMQ();
+} catch (err) {
+  console.log("RabbitMQ connection skipped:", err.message);
+}
 
 
 const server = http.createServer(app)

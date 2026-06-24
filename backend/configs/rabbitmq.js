@@ -1,7 +1,3 @@
-import amqp from "amqplib";
-
-let channel, connection;
-
 export async function connectRabbitMQ() {
   try {
     connection = await amqp.connect(process.env.RABBITMQ_URL);
@@ -11,9 +7,9 @@ export async function connectRabbitMQ() {
     });
 
     connection.on("close", () => {
-      console.log("🐰 RabbitMQ connection closed. Reconnecting in 5s...");
+      console.log("🐰 RabbitMQ connection closed.");
       channel = null;
-      setTimeout(connectRabbitMQ, 5000);
+      // ❌ setTimeout hatao — Vercel pe retry mat karo
     });
 
     channel = await connection.createChannel();
@@ -23,14 +19,9 @@ export async function connectRabbitMQ() {
     });
 
     console.log("🐰 RabbitMQ connected");
-
     return channel;
   } catch (err) {
-    console.log("🐰 RabbitMQ connection failed:", err.message, "Retrying in 5s...");
-    setTimeout(connectRabbitMQ, 5000);
+    console.log("🐰 RabbitMQ connection failed:", err.message);
+    // ❌ setTimeout hatao — bas log karo aur return karo
   }
-}
-
-export function getChannel() {
-  return channel;
 }
