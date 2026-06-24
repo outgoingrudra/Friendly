@@ -1,5 +1,5 @@
-import Chat from "../models/Chat.js";
-import Message from "../models/Message.js";
+import Chat from "../models/chat.js";
+import Message from "../models/message.js";
 import { getIO } from "../utils/socket.js";
 
 export async function sendMessage(req, res) {
