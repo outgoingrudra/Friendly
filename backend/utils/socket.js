@@ -6,6 +6,7 @@ export function initializeSocket(server) {
   io = new Server(server, {
     cors: {
     origin: "https://friendly-frontend-omega.vercel.app",
+    //origin : "http://localhost:5173",
     credentials: true,
   },
   });

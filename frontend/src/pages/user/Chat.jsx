@@ -37,6 +37,8 @@ export default function Chat() {
   const [otherUser, setOtherUser] = useState(null);
   const [chatId, setChatId] = useState(null);
   const [sending, setSending] = useState(false);
+    const socketRef = useRef(null);
+
 
   const messagesEndRef = useRef(null);
 
@@ -62,21 +64,29 @@ export default function Chat() {
     markAsSeenApi(chatId).then(() => invalidateChatsCache());
   }, [chatId]);
 
+
   useEffect(() => {
     if (!user || !chatId) return;
+
     const socket = createSocketConnection();
+    socketRef.current = socket;
 
     socket.emit("joinChat", { chatId });
-    socket.on("messageReceived", (message) => {
+
+    const handleMessage = (message) => {
       setMessages((prev) => {
         if (prev.some((m) => m._id === message._id)) return prev;
         return [...prev, message];
       });
-      // mark seen whenever a new message arrives (it's from the other person)
       markAsSeenApi(chatId).then(() => invalidateChatsCache());
-    });
+    };
 
-    return () => socket.disconnect();
+    socket.off("messageReceived");
+    socket.on("messageReceived", handleMessage);
+
+    return () => {
+      socket.off("messageReceived");
+    };
   }, [user, chatId]);
 
   useEffect(() => {
